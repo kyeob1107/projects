@@ -1,0 +1,13 @@
+name: Slack Notification2
+on: [push]
+jobs:
+  slack-notify:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Send Slack Notification
+      uses: 8398a7/action-slack@v3
+      with:
+        status: ${{ job.status }}
+        fields: repo,message,commit,author,action,eventName,ref,workflow,job,took
+        # Slack 웹훅 URL을 비밀 설정으로 추가 후 사용
+        webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
