@@ -1,14 +1,34 @@
-name: Slack Notification on Issue Update2
-on:
-  issues:
-    types: [opened, edited, reopened, assigned, unassigned, labeled, unlabeled, milestoned, demilestoned]
-
+name: Example Workflow
+on: push
 jobs:
-  slack_notification:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: Send Slack Notification
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      - name: Checkout
+        uses: actions/checkout@v2
+    
+      - name: Get changed files
+        id: files
         run: |
-          curl -X POST -H 'Content-type: application/json' --data '{"text":"GitHub Issue has been updated. Action by: ${GITHUB_ACTOR}."}' $SLACK_WEBHOOK_URL
+          echo "::set-output name=list::$(git diff --name-only ${{ github.sha }}^ ${{ github.sha }})"
+      - name: Notify Slack
+        uses: slackapi/slack-github-action@v1.25.0
+        with:
+          slack-webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
+          payload: |
+            {
+              "attachments": [
+                {
+                  "color": "#36a64f",
+                  "title": "커밋된 파일 경로",
+                  "fields": [
+                    {
+                      "title": "Files",
+                      "value": "https://github.com/${{ github.repository }}/tree/${{ github.sha }}/${{ steps.files.outputs.list }}",
+                      "short": false
+                    }
+                  ]
+                }
+              ]
+            }
+    
