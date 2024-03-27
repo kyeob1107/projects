@@ -1,13 +1,14 @@
-name: Slack Notification2
-on: [push]
+name: Slack Notification on Issue Update2
+on:
+  issues:
+    types: [opened, edited, reopened, assigned, unassigned, labeled, unlabeled, milestoned, demilestoned]
+
 jobs:
-  slack-notify:
+  slack_notification:
     runs-on: ubuntu-latest
     steps:
-    - name: Send Slack Notification
-      uses: 8398a7/action-slack@v3
-      with:
-        status: ${{ job.status }}
-        fields: repo,message,commit,author,action,eventName,ref,workflow,job,took
-        # Slack 웹훅 URL을 비밀 설정으로 추가 후 사용
-        webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
+      - name: Send Slack Notification
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          curl -X POST -H 'Content-type: application/json' --data '{"text":"GitHub Issue has been updated. Action by: ${GITHUB_ACTOR}."}' $SLACK_WEBHOOK_URL
