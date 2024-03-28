@@ -1,8 +1,9 @@
 name: Slack Notification on Issue Activity
 on:
   issues:
+    types: [opened, edited, deleted, transferred, pinned, unpinned, closed, reopened, assigned, unassigned, labeled, unlabeled, locked, unlocked, milestoned, demilestoned]
   issue_comment:
-
+    types: [created, edited, deleted]
 jobs:
   slack_notification:
     runs-on: ubuntu-latest
@@ -11,4 +12,4 @@ jobs:
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         run: |
-          curl -X POST -H 'Content-type: application/json' --data '{"text":"GitHub Issue has been updated. Action by: ${{GITHUB_ACTOR}}."}' $SLACK_WEBHOOK_URL
+          curl -X POST -H 'Content-type: application/json' --data '{"text":"GitHub Issue has been updated. Action by: ${{ github.actor }}."}' $SLACK_WEBHOOK_URL
