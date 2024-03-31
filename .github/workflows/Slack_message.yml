@@ -1,4 +1,4 @@
-name: Slack Notification on Issue Activity
+name: Slack Notification on Issue Activity Lastest
 on:
   issues:
       # types: [opened, edited, deleted, transferred, pinned, unpinned, closed, reopened, assigned, unassigned, labeled, unlabeled, locked, unlocked, milestoned, demilestoned]
@@ -8,6 +8,8 @@ jobs:
   slack_notification:
     runs-on: ubuntu-latest
     steps:
+      - name: Set current date and time
+        run: echo "CURRENT_DATETIME=$(date +'%Y-%m-%d %H:%M:%S')" >> $GITHUB_ENV
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Send Slack Notification
@@ -21,22 +23,24 @@ jobs:
             			"type": "header",
             			"text": {
             				"type": "plain_text",
-            				"text": "issue 알림",
+            				"text": "---------------------------------------------------------------------",
+            				"emoji": true
+            			}
+            		},
+            		{
+            			"type": "header",
+            			"text": {
+            				"type": "plain_text",
+            				"text": "${{ github.event_name }}",
             				"emoji": true
             			}
             		},
             		{
             			"type": "section",
-            			"fields": [
-            				{
-            					"type": "mrkdwn",
-            					"text": "*Type:* `${{ github.event_name }}`"
-            				},
-            				{
-            					"type": "mrkdwn",
-            					"text": "*Issue name:* `${{ github.event.issue.title }}`"
-            				}
-            			]
+            			"text": {
+            				"type": "mrkdwn",
+            				"text": "<https://github.com/${{ github.repository }}/issues/${{ github.event.issue.number }}|_#_${{ github.event.issue.number }} ${{ github.event.issue.title }}>"
+            			}
             		},
             		{
             			"type": "section",
@@ -47,14 +51,29 @@ jobs:
             		},
             		{
             			"type": "section",
-            			"fields": [
+            			"text": {
+            				"type": "mrkdwn",
+            				"text": "*Action by:* <https://github.com/${{ github.actor }}|`${{ github.actor }}`>"
+            			}
+            		},
+            		{
+            			"type": "section",
+            			"text": {
+            				"type": "mrkdwn",
+            				"text": "*When:* ${{ env.CURRENT_DATETIME }}"
+            			}
+            		},
+            		{
+            			"type": "rich_text",
+            			"elements": [
             				{
-            					"type": "mrkdwn",
-            					"text": "*Action by:* <https://github.com/${{ github.actor }}|`${{ github.actor }}`>"
-            				},
-            				{
-            					"type": "mrkdwn",
-            					"text": "*When:* 시간"
+            					"type": "rich_text_section",
+            					"elements": [
+            						{
+            							"type": "text",
+            							"text": "${{ github.run.id }} , ${{ github.run.number }}"
+            						}
+            					]
             				}
             			]
             		},
@@ -62,15 +81,14 @@ jobs:
             			"type": "section",
             			"text": {
             				"type": "mrkdwn",
-            				"text": "<https://github.com/kyeob1107/Four-A/issues|View issue>"
+            				"text": "<https://github.com/${{ github.repository }}|${{ github.repository }}>"
             			}
             		},
             		{
-            			"type": "header",
+            			"type": "section",
             			"text": {
-            				"type": "plain_text",
-            				"text": "This is a header block",
-            				"emoji": true
+            				"type": "mrkdwn",
+            				"text": "<https://github.com/kyeob1107/Four-A/issues|View issue>"
             			}
             		},
             		{
@@ -97,6 +115,14 @@ jobs:
             					"value": "click_me_123"
             				}
             			]
+            		},
+            		{
+            			"type": "header",
+            			"text": {
+            				"type": "plain_text",
+            				"text": "---------------------------------------------------------------------",
+            				"emoji": true
+            			}
             		}
             	]
             }
