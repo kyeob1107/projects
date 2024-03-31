@@ -71,7 +71,7 @@ jobs:
             					"elements": [
             						{
             							"type": "text",
-            							"text": "${{ github.run.id }} , ${{ github.run.number }}"
+            							"text": "${{ github.run_id }} , ${{ github.run_number }}"
             						}
             					]
             				}
@@ -91,31 +91,31 @@ jobs:
             				"text": "<https://github.com/kyeob1107/Four-A/issues|View issue>"
             			}
             		},
-            		{
-            			"type": "actions",
-            			"elements": [
-            				{
-            					"type": "button",
-            					"text": {
-            						"type": "plain_text",
-            						"emoji": true,
-            						"text": "Approve"
-            					},
-            					"style": "primary",
-            					"value": "click_me_123"
-            				},
-            				{
-            					"type": "button",
-            					"text": {
-            						"type": "plain_text",
-            						"emoji": true,
-            						"text": "Reject"
-            					},
-            					"style": "danger",
-            					"value": "click_me_123"
-            				}
-            			]
-            		},
+            		# {
+            		# 	"type": "actions",
+            		# 	"elements": [
+            		# 		{
+            		# 			"type": "button",
+            		# 			"text": {
+            		# 				"type": "plain_text",
+            		# 				"emoji": true,
+            		# 				"text": "Approve"
+            		# 			},
+            		# 			"style": "primary",
+            		# 			"value": "click_me_123"
+            		# 		},
+            		# 		{
+            		# 			"type": "button",
+            		# 			"text": {
+            		# 				"type": "plain_text",
+            		# 				"emoji": true,
+            		# 				"text": "Reject"
+            		# 			},
+            		# 			"style": "danger",
+            		# 			"value": "click_me_123"
+            		# 		}
+            		# 	]
+            		# },
             		{
             			"type": "header",
             			"text": {
