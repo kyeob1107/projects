@@ -7,8 +7,10 @@ jobs:
   slack_notification:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
       - name: Send Slack Notification
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         run: |
-          curl -X POST -H 'Content-type: application/json' --data '{"text":"GitHub repository has been updated by ${{GITHUB_ACTOR}}."}' $SLACK_WEBHOOK_URL
+          curl -X POST -H 'Content-type: application/json' --data '{"text":"GitHub repository has been updated by '${{ github.actor }}'."}' $SLACK_WEBHOOK_URL
