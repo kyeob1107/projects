@@ -30,11 +30,11 @@ jobs:
             			"fields": [
             				{
             					"type": "mrkdwn",
-            					"text": "*Type:*\n`${{ github.event_name }}`"
+            					"text": "*Type:* `${{ github.event_name }}`"
             				},
             				{
             					"type": "mrkdwn",
-            					"text": "*Issue name:*\n`${{ github.event.issue.title }}`"
+            					"text": "*Issue name:* `${{ github.event.issue.title }}`"
             				}
             			]
             		},
@@ -50,7 +50,7 @@ jobs:
             			"fields": [
             				{
             					"type": "mrkdwn",
-            					"text": "*Action by:*\n<https://github.com/${{ github.actor }}|`${{ github.actor }}`>"
+            					"text": "*Action by:* <https://github.com/${{ github.actor }}|`${{ github.actor }}`>"
             				},
             				{
             					"type": "mrkdwn",
