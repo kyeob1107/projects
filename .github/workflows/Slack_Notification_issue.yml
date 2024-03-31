@@ -14,7 +14,10 @@ jobs:
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         run: |
-          MESSAGE="GitHub Issue has been updated. Action by: \`${{ github.actor }}\`.\n"
+          ISSUE_TITLE="${{ github.event.issue.title }}"
+          COMMENT_BODY="${{ github.event.comment.body }}"
+          MESSAGE="Issue: *$ISSUE_TITLE*\nNew Comment: $COMMENT_BODY\n"
+          MESSAGE+="GitHub Issue has been updated. Action by: \`${{ github.actor }}\`.\n"
           MESSAGE+="테스트 워크플로를 트리거한 이벤트: \`${{ github.event_name }}\`.\n"
           MESSAGE+="테스트 워크플로를 트리거한 이벤트의 데이터를 포함하는 파일의 경로: \`${{ github.event_path }}\`.\n"
           MESSAGE+="테스트 GitHub Actions 러너가 작업을 수행하는 디렉토리의 경로: \`${{ github.workspace }}\`.\n"
