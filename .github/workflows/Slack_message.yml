@@ -23,45 +23,49 @@ jobs:
             			"type": "header",
             			"text": {
             				"type": "plain_text",
-            				"text": "---------------------------------------------------------------------",
-            				"emoji": true
-            			}
-            		},
-            		{
-            			"type": "header",
-            			"text": {
-            				"type": "plain_text",
             				"text": "${{ github.event_name }} [${{github.event.action}}]",
             				"emoji": true
             			}
             		},
             		{
-            			"type": "section",
-            			"text": {
-            				"type": "mrkdwn",
-            				"text": "<https://github.com/${{ github.repository }}/issues/${{ github.event.issue.number }}|_#_${{ github.event.issue.number }} ${{ github.event.issue.title }}>"
-            			}
+            			"type": "divider"
+            		},
+            		{
+            			"type": "context",
+            			"elements": [
+            				{
+            					"type": "mrkdwn",
+            					"text": "<https://github.com/${{ github.repository }}/issues/${{ github.event.issue.number }}|_#_${{ github.event.issue.number }} ${{ github.event.issue.title }}>"
+            				}
+            			]
             		},
             		{
             			"type": "section",
             			"text": {
             				"type": "mrkdwn",
-            				"text": "*Comment Content:*\n${{ github.event.comment.body }}"
+            				"text": "*Comment Content:*\n>>>${{ github.event.comment.body }}"
             			}
             		},
             		{
-            			"type": "section",
-            			"text": {
-            				"type": "mrkdwn",
-            				"text": "*Action by:* <https://github.com/${{ github.actor }}|`${{ github.actor }}`>"
-            			}
-            		},
-            		{
-            			"type": "section",
-            			"text": {
-            				"type": "mrkdwn",
-            				"text": "*When:* ${{ env.CURRENT_DATETIME }}"
-            			}
+            			"type": "context",
+            			"elements": [
+            				{
+            					"type": "mrkdwn",
+            					"text": "*Action by:* <https://github.com/${{ github.actor }}|`${{ github.actor }}`>"
+            				},
+            				{
+            					"type": "mrkdwn",
+            					"text": "*When:* ${{ env.CURRENT_DATETIME }}"
+            				},
+            				{
+            					"type": "mrkdwn",
+            					"text": "<https://github.com/${{ github.repository }}|${{ github.repository }}>"
+            				},
+            				{
+            					"type": "mrkdwn",
+            					"text": "<https://github.com/kyeob1107/Four-A/issues|View issue>"
+            				}
+            			]
             		},
             		{
             			"type": "rich_text",
@@ -71,58 +75,14 @@ jobs:
             					"elements": [
             						{
             							"type": "text",
-            							"text": "${{ github.run_id }} , ${{ github.run_number }}"
+            							"text": "${{ github.run.id }} , ${{ github.run.number }}"
             						}
             					]
             				}
             			]
             		},
             		{
-            			"type": "section",
-            			"text": {
-            				"type": "mrkdwn",
-            				"text": "<https://github.com/${{ github.repository }}|${{ github.repository }}>"
-            			}
-            		},
-            		{
-            			"type": "section",
-            			"text": {
-            				"type": "mrkdwn",
-            				"text": "<https://github.com/kyeob1107/Four-A/issues|View issue>"
-            			}
-            		},
-            		{
-            			"type": "actions",
-            			"elements": [
-            				{
-            					"type": "button",
-            					"text": {
-            						"type": "plain_text",
-            						"emoji": true,
-            						"text": "Approve"
-            					},
-            					"style": "primary",
-            					"value": "click_me_123"
-            				},
-            				{
-            					"type": "button",
-            					"text": {
-            						"type": "plain_text",
-            						"emoji": true,
-            						"text": "Reject"
-            					},
-            					"style": "danger",
-            					"value": "click_me_123"
-            				}
-            			]
-            		},
-            		{
-            			"type": "header",
-            			"text": {
-            				"type": "plain_text",
-            				"text": "---------------------------------------------------------------------",
-            				"emoji": true
-            			}
+            			"type": "divider"
             		}
             	]
             }
